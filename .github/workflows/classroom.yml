@@ -1,0 +1,28 @@
+name: Autograding
+on: [push]
+jobs:
+  autograding:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: test_db
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run SQL Test
+        run: |
+          # 1. Initialize Schema and Data
+          mysql -h 127.0.0.1 -u root -ppassword test_db < data/setup.sql
+          
+          # 2. Run Student solution and save to a file
+          # We use --batch and --silent to get clean output for comparison
+          mysql -h 127.0.0.1 -u root -ppassword test_db --batch --silent < solution.sql > student_output.txt
+          
+          # 3. Compare with expected output
+          # -Z ignores trailing whitespace which often causes false failures
+          diff -Z student_output.txt tests/expected_output.txt
