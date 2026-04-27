@@ -2,8 +2,7 @@ SELECT
     c.ClassID,
     c.ClassName,
     c.Instructor,
-    c.ScheduleDate,
-    c.ScheduleTime,
+    c.ScheduleDateTime,
     m.MemberID,
     m.FirstName,
     m.LastName
