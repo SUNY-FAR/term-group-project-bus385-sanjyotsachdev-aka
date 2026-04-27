@@ -2,7 +2,7 @@ SELECT
     c.ClassID,
     c.ClassName,
     c.Instructor,
-    c.ScheduleDateTime,
+    DATE_FORMAT(c.ScheduleDateTime, '%Y-%m-%d %H:%i:%s'),
     m.MemberID,
     m.FirstName,
     m.LastName
