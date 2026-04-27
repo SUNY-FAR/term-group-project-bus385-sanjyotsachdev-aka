@@ -7,9 +7,9 @@ SELECT
     m.MemberID,
     m.FirstName,
     m.LastName
-FROM Classes c
-LEFT JOIN ClassRegistrations cr ON c.ClassID = cr.ClassID
-LEFT JOIN Members m ON cr.MemberID = m.MemberID
+FROM classes c
+LEFT JOIN classregistrations cr ON c.ClassID = cr.ClassID
+LEFT JOIN members m ON cr.MemberID = m.MemberID
 WHERE c.ClassName = 'Zumba'
 ORDER BY c.ClassID;
 
